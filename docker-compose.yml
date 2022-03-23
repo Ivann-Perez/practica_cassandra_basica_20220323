@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  jupyter-lab:
+    build: 
+      context: .
+      dockerfile: Dockerfile.jupyter
+    environment:
+      - JUPYTER_TOKEN=codeop
+    volumes:
+      - ./nbs/:/home/jovyan/work
+      - ./event_data/:/home/seed_data
+    ports:
+      - 8888:8888
+
+  cassandra_db:
+    image: cassandra:4.0.3
+    environment:
+      - CASSANDRA_CLUSTER_NAME=codeop
+    ports:
+      - 9042:9042
+
